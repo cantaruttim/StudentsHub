@@ -1,43 +1,24 @@
-package br.com.atividades.atividades.model;
+package br.com.atividades.atividades.data.dto;
 
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-@Entity
-@Table(name = "activities")
-public class FormsActivitiesCollege implements Serializable {
+@JsonPropertyOrder({"id", "registrationNumber", "name", "email", "module", "questionOne", "questionTwo", "sentAt"})
+public class FormsActivitiesCollegeDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "name")
     private String name;
-
-    @Column(name = "email")
     private String email;
-
-    @Column(name = "registrationNumber")
     private String registrationNumber;
-
-    @Column(name = "module")
     private String module;
-
-    @Column(name = "questionOne")
     private String questionOne;
-
-    @Column(name = "questionTwo")
     private String questionTwo;
-
-    @Column(name = "sentAt")
     private LocalDateTime sentAt;
-
-    public FormsActivitiesCollege() {}
 
     public Long getId() {
         return id;
@@ -71,20 +52,20 @@ public class FormsActivitiesCollege implements Serializable {
         this.registrationNumber = registrationNumber;
     }
 
-    public String getQuestionOne() {
-        return questionOne;
-    }
-
-    public void setQuestionOne(String questionOne) {
-        this.questionOne = questionOne;
-    }
-
     public String getModule() {
         return module;
     }
 
     public void setModule(String module) {
         this.module = module;
+    }
+
+    public String getQuestionOne() {
+        return questionOne;
+    }
+
+    public void setQuestionOne(String questionOne) {
+        this.questionOne = questionOne;
     }
 
     public String getQuestionTwo() {
@@ -103,21 +84,14 @@ public class FormsActivitiesCollege implements Serializable {
         this.sentAt = sentAt;
     }
 
-    @PrePersist
-    public void prePersist() {
-        if (sentAt == null) {
-            sentAt = LocalDateTime.now();
-        }
-    }
-
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof FormsActivitiesCollege that)) return false;
-        return Objects.equals(getId(), that.getId()) && Objects.equals(getName(), that.getName()) && Objects.equals(getEmail(), that.getEmail()) && Objects.equals(getRegistrationNumber(), that.getRegistrationNumber()) && Objects.equals(getModule(), that.getModule()) && Objects.equals(getQuestionOne(), that.getQuestionOne()) && Objects.equals(getQuestionTwo(), that.getQuestionTwo()) && Objects.equals(getSentAt(), that.getSentAt());
+        if (!(o instanceof FormsActivitiesCollegeDTO that)) return false;
+        return Objects.equals(getId(), that.getId()) && Objects.equals(getName(), that.getName()) && Objects.equals(getEmail(), that.getEmail()) && Objects.equals(getRegistrationNumber(), that.getRegistrationNumber()) && Objects.equals(getModule(), that.getModule()) && Objects.equals(getQuestionOne(), that.getQuestionOne()) && Objects.equals(getQuestionTwo(), that.getQuestionTwo());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getEmail(), getRegistrationNumber(), getModule(), getQuestionOne(), getQuestionTwo(), getSentAt());
+        return Objects.hash(getId(), getName(), getEmail(), getRegistrationNumber(), getModule(), getQuestionOne(), getQuestionTwo());
     }
 }

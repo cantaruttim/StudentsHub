@@ -1,4 +1,4 @@
-package br.com.atividades.atividades.exception.handler;
+package br.com.atividades.atividades.exception;
 
 import java.util.Date;
 
