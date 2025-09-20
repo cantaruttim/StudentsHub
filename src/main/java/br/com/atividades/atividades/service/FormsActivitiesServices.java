@@ -32,13 +32,17 @@ public class FormsActivitiesServices {
 
     public List<FormsActivitiesCollegeDTO> findAll() {
         logger.info("Finding all People!");
-        return parseListObject(
+        var forms = parseListObject(
                 repository.findAll(),
                 FormsActivitiesCollegeDTO.class
         );
+
+        forms.forEach(this::addHateoasLinks);
+        return forms;
+
     }
 
-    public FormsActivitiesCollegeDTO findById(Long id) {
+    public FormsActivitiesCollegeDTO findById(String id) {
         logger.info("Finding One Activity!");
 
         var entity = repository.findById(id)
@@ -49,7 +53,7 @@ public class FormsActivitiesServices {
                         )
                 );
         var dto = parseObject(entity, FormsActivitiesCollegeDTO.class);
-        addHateoasLinks(id, dto);
+        addHateoasLinks(dto);
         return dto;
     }
 
@@ -60,10 +64,12 @@ public class FormsActivitiesServices {
     ) {
         logger.info("Creating One Activity!");
         var entity = parseObject(activity, FormsActivitiesCollege.class);
-        return parseObject(repository.save(entity), FormsActivitiesCollegeDTO.class);
+        var dto = parseObject(repository.save(entity), FormsActivitiesCollegeDTO.class);
+        addHateoasLinks(dto);
+        return dto;
     }
 
-    public void delete(Long id) {
+    public void delete(String id) {
         logger.info("Deleting One Activity!");
         FormsActivitiesCollege entity = repository
                         .findById(id)
@@ -80,7 +86,7 @@ public class FormsActivitiesServices {
         logger.info("Updating One Activity!");
 
         FormsActivitiesCollege entity = repository
-                .findById(activity.getId())
+                .findById(activity.getRegistrationNumber())
                 .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
 
         entity.setName(activity.getName());
@@ -91,14 +97,16 @@ public class FormsActivitiesServices {
         entity.setQuestionTwo(activity.getQuestionTwo());
         entity.setSentAt(activity.getSentAt());
 
-        return parseObject(repository.save(entity), FormsActivitiesCollegeDTO.class);
+        var dto = parseObject(repository.save(entity), FormsActivitiesCollegeDTO.class);
+        addHateoasLinks(dto);
+        return dto;
     }
 
-    private static void addHateoasLinks(Long id, FormsActivitiesCollegeDTO dto) {
-        dto.add(linkTo(methodOn(FormsActivitiesController.class).findById(id)).withSelfRel().withType("GET"));
+    private void addHateoasLinks(FormsActivitiesCollegeDTO dto) {
+        dto.add(linkTo(methodOn(FormsActivitiesController.class).findById(dto.getRegistrationNumber())).withSelfRel().withType("GET"));
         dto.add(linkTo(methodOn(FormsActivitiesController.class).findAll()).withRel("findAll").withType("GET"));
         dto.add(linkTo(methodOn(FormsActivitiesController.class).create(dto)).withRel("create").withType("POST"));
         dto.add(linkTo(methodOn(FormsActivitiesController.class).update(dto)).withRel("update").withType("PUT"));
-        dto.add(linkTo(methodOn(FormsActivitiesController.class).delete(id)).withRel("delete").withType("DELETE"));
+        dto.add(linkTo(methodOn(FormsActivitiesController.class).delete(dto.getRegistrationNumber())).withRel("delete").withType("DELETE"));
     }
 }

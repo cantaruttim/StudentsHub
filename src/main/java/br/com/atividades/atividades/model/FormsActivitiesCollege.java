@@ -10,18 +10,13 @@ import java.util.Objects;
 @Table(name = "activities")
 public class FormsActivitiesCollege implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     @Column(name = "name")
     private String name;
 
     @Column(name = "email")
     private String email;
 
+    @Id
     @Column(name = "registrationNumber")
     private String registrationNumber;
 
@@ -37,14 +32,7 @@ public class FormsActivitiesCollege implements Serializable {
     @Column(name = "sentAt")
     private LocalDateTime sentAt;
 
-    public FormsActivitiesCollege() {}
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public FormsActivitiesCollege() {
     }
 
     public String getName() {
@@ -113,11 +101,11 @@ public class FormsActivitiesCollege implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof FormsActivitiesCollege that)) return false;
-        return Objects.equals(getId(), that.getId()) && Objects.equals(getName(), that.getName()) && Objects.equals(getEmail(), that.getEmail()) && Objects.equals(getRegistrationNumber(), that.getRegistrationNumber()) && Objects.equals(getModule(), that.getModule()) && Objects.equals(getQuestionOne(), that.getQuestionOne()) && Objects.equals(getQuestionTwo(), that.getQuestionTwo()) && Objects.equals(getSentAt(), that.getSentAt());
+        return Objects.equals(getName(), that.getName()) && Objects.equals(getEmail(), that.getEmail()) && Objects.equals(getRegistrationNumber(), that.getRegistrationNumber()) && Objects.equals(getModule(), that.getModule()) && Objects.equals(getQuestionOne(), that.getQuestionOne()) && Objects.equals(getQuestionTwo(), that.getQuestionTwo()) && Objects.equals(getSentAt(), that.getSentAt());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getEmail(), getRegistrationNumber(), getModule(), getQuestionOne(), getQuestionTwo(), getSentAt());
+        return Objects.hash(getName(), getEmail(), getRegistrationNumber(), getModule(), getQuestionOne(), getQuestionTwo(), getSentAt());
     }
 }

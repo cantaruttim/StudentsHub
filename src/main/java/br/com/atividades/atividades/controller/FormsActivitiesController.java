@@ -29,7 +29,7 @@ public class FormsActivitiesController {
                     MediaType.APPLICATION_YAML_VALUE
             }
     )
-    public FormsActivitiesCollegeDTO findById(@PathVariable("id") Long id) {
+    public FormsActivitiesCollegeDTO findById(@PathVariable("id") String id) {
         return service.findById(id);
     }
 
@@ -89,7 +89,7 @@ public class FormsActivitiesController {
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(
-            @PathVariable("id") Long id
+            @PathVariable("id") String id
     ) {
         service.delete(id);
         return ResponseEntity.noContent().build();

@@ -7,12 +7,9 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-@JsonPropertyOrder({"id", "registrationNumber", "name", "email", "module", "questionOne", "questionTwo", "sentAt"})
+@JsonPropertyOrder({"registrationNumber", "name", "email", "module", "questionOne", "questionTwo", "sentAt"})
 public class FormsActivitiesCollegeDTO extends RepresentationModel<FormsActivitiesCollegeDTO> implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
-    private Long id;
     private String name;
     private String email;
     private String registrationNumber;
@@ -20,14 +17,6 @@ public class FormsActivitiesCollegeDTO extends RepresentationModel<FormsActiviti
     private String questionOne;
     private String questionTwo;
     private LocalDateTime sentAt;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -88,11 +77,12 @@ public class FormsActivitiesCollegeDTO extends RepresentationModel<FormsActiviti
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof FormsActivitiesCollegeDTO that)) return false;
-        return Objects.equals(getId(), that.getId()) && Objects.equals(getName(), that.getName()) && Objects.equals(getEmail(), that.getEmail()) && Objects.equals(getRegistrationNumber(), that.getRegistrationNumber()) && Objects.equals(getModule(), that.getModule()) && Objects.equals(getQuestionOne(), that.getQuestionOne()) && Objects.equals(getQuestionTwo(), that.getQuestionTwo());
+        if (!super.equals(o)) return false;
+        return Objects.equals(getName(), that.getName()) && Objects.equals(getEmail(), that.getEmail()) && Objects.equals(getRegistrationNumber(), that.getRegistrationNumber()) && Objects.equals(getModule(), that.getModule()) && Objects.equals(getQuestionOne(), that.getQuestionOne()) && Objects.equals(getQuestionTwo(), that.getQuestionTwo()) && Objects.equals(getSentAt(), that.getSentAt());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getEmail(), getRegistrationNumber(), getModule(), getQuestionOne(), getQuestionTwo());
+        return Objects.hash(super.hashCode(), getName(), getEmail(), getRegistrationNumber(), getModule(), getQuestionOne(), getQuestionTwo(), getSentAt());
     }
 }
