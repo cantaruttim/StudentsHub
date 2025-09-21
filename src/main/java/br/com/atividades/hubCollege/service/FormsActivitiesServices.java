@@ -1,11 +1,11 @@
-package br.com.atividades.atividades.service;
+package br.com.atividades.hubCollege.service;
 
 
-import br.com.atividades.atividades.controller.FormsActivitiesController;
-import br.com.atividades.atividades.data.dto.FormsActivitiesCollegeDTO;
-import br.com.atividades.atividades.exception.ResourceNotFoundException;
-import br.com.atividades.atividades.model.FormsActivitiesCollege;
-import br.com.atividades.atividades.repository.FormsActivitiesRepository;
+import br.com.atividades.hubCollege.controller.FormsActivitiesController;
+import br.com.atividades.hubCollege.data.dto.FormsActivitiesCollegeDTO;
+import br.com.atividades.hubCollege.exception.ResourceNotFoundException;
+import br.com.atividades.hubCollege.model.FormsActivitiesCollege;
+import br.com.atividades.hubCollege.repository.FormsActivitiesRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +15,8 @@ import org.springframework.stereotype.Service;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.List;
 
-import static br.com.atividades.atividades.mapper.ObjectMapper.parseListObject;
-import static br.com.atividades.atividades.mapper.ObjectMapper.parseObject;
+import static br.com.atividades.hubCollege.mapper.ObjectMapper.parseListObject;
+import static br.com.atividades.hubCollege.mapper.ObjectMapper.parseObject;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Service

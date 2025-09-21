@@ -1,6 +1,6 @@
-package br.com.atividades.atividades.repository;
+package br.com.atividades.hubCollege.repository;
 
-import br.com.atividades.atividades.model.FormsActivitiesCollege;
+import br.com.atividades.hubCollege.model.FormsActivitiesCollege;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface FormsActivitiesRepository

@@ -1,4 +1,4 @@
-package br.com.atividades.atividades.model;
+package br.com.atividades.hubCollege.model;
 
 import jakarta.persistence.*;
 

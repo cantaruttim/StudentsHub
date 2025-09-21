@@ -1,4 +1,4 @@
-package br.com.atividades.atividades.serialization.converter;
+package br.com.atividades.hubCollege.serialization.converter;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;

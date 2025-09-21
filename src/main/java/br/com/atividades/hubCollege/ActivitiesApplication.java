@@ -1,4 +1,4 @@
-package br.com.atividades.atividades;
+package br.com.atividades.hubCollege;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

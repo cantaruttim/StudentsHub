@@ -1,9 +1,9 @@
-package br.com.atividades.atividades.controller;
+package br.com.atividades.hubCollege.controller;
 
-import br.com.atividades.atividades.data.dto.FormsActivitiesCollegeDTO;
-import br.com.atividades.atividades.model.FormsActivitiesCollege;
-import br.com.atividades.atividades.repository.FormsActivitiesRepository;
-import br.com.atividades.atividades.service.FormsActivitiesServices;
+import br.com.atividades.hubCollege.data.dto.FormsActivitiesCollegeDTO;
+import br.com.atividades.hubCollege.model.FormsActivitiesCollege;
+import br.com.atividades.hubCollege.repository.FormsActivitiesRepository;
+import br.com.atividades.hubCollege.service.FormsActivitiesServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

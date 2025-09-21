@@ -1,4 +1,4 @@
-package br.com.atividades.atividades.data.dto;
+package br.com.atividades.hubCollege.data.dto;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import org.springframework.hateoas.RepresentationModel;

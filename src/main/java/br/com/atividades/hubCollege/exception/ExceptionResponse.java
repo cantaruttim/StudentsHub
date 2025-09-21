@@ -1,4 +1,4 @@
-package br.com.atividades.atividades.exception;
+package br.com.atividades.hubCollege.exception;
 
 import java.util.Date;
 

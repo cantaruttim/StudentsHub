@@ -1,4 +1,4 @@
-package br.com.atividades.atividades.mapper;
+package br.com.atividades.hubCollege.mapper;
 
 import com.github.dozermapper.core.DozerBeanMapperBuilder;
 import com.github.dozermapper.core.Mapper;

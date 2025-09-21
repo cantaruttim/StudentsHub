@@ -1,7 +1,7 @@
-package br.com.atividades.atividades.exception.handler;
+package br.com.atividades.hubCollege.exception.handler;
 
-import br.com.atividades.atividades.exception.ExceptionResponse;
-import br.com.atividades.atividades.exception.ResourceNotFoundException;
+import br.com.atividades.hubCollege.exception.ExceptionResponse;
+import br.com.atividades.hubCollege.exception.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
