@@ -1,15 +1,14 @@
 package br.com.atividades.hubCollege.controller;
 
-import br.com.atividades.hubCollege.data.dto.FormsActivitiesCollegeDTO;
-import br.com.atividades.hubCollege.model.FormsActivitiesCollege;
-import br.com.atividades.hubCollege.repository.FormsActivitiesRepository;
-import br.com.atividades.hubCollege.service.FormsActivitiesServices;
+import br.com.atividades.hubCollege.data.dto.LoginCollegeDTO;
+import br.com.atividades.hubCollege.exception.ResourceNotFoundException;
+import br.com.atividades.hubCollege.repository.LoginCollegeRepository;
+import br.com.atividades.hubCollege.service.LoginCollegeServices;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,14 +18,14 @@ import java.util.List;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/api/activities/v1")
-@Tag(name = "activities", description = "Endpoint for managing Activities")
-public class FormsActivitiesController {
+@RequestMapping("/api/login/v1")
+public class LoginCollegeController {
 
     @Autowired
-    private FormsActivitiesServices service;
+    private LoginCollegeServices service;
     @Autowired
-    private FormsActivitiesRepository repository;
+    private LoginCollegeRepository repository;
+
 
     @GetMapping(
             value = "/{id}",
@@ -36,8 +35,15 @@ public class FormsActivitiesController {
                     MediaType.APPLICATION_YAML_VALUE
             }
     )
-    public FormsActivitiesCollegeDTO findById(@PathVariable("id") String id) {
-        return service.findById(id);
+    public ResponseEntity<?> findById(@PathVariable("id") String id) {
+        try {
+            LoginCollegeDTO dto = service.findById(id);
+            return ResponseEntity.ok(dto); // 200 OK com o DTO
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(404).body("registration number not found!");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("ERROR to find registration number");
+        }
     }
 
     @GetMapping(
@@ -48,9 +54,9 @@ public class FormsActivitiesController {
             }
     )
     @Operation(
-            summary = "Find all activities",
-            description = "Find all activities",
-            tags = {"Activities"},
+            summary = "Find all logins",
+            description = "Find all logins",
+            tags = {"Logins"},
             responses = {
                     @ApiResponse(
                             description = "Success",
@@ -58,7 +64,7 @@ public class FormsActivitiesController {
                             content = {
                                     @Content(
                                             mediaType = MediaType.APPLICATION_JSON_VALUE,
-                                            array = @ArraySchema(schema = @Schema(implementation = FormsActivitiesCollegeDTO.class))
+                                            array = @ArraySchema(schema = @Schema(implementation = LoginCollegeDTO.class))
                                     )
                             }),
                     @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
@@ -67,7 +73,7 @@ public class FormsActivitiesController {
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Server Error", responseCode = "500", content = @Content),
             })
-    public List<FormsActivitiesCollegeDTO> findAll() {
+    public List<LoginCollegeDTO> findAll() {
         return service.findAll();
     }
 
@@ -84,37 +90,14 @@ public class FormsActivitiesController {
             }
     )
     @Operation(
-            summary = "Find an activities",
-            description = "Find an activities",
-            tags = {"Activities"},
-            responses = {
-                    @ApiResponse(
-                            description = "Success",
-                            responseCode = "204",
-                            content = @Content(schema = @Schema(implementation = FormsActivitiesCollegeDTO.class))
-                    ),
-                    @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
-                    @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
-                    @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
-                    @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
-                    @ApiResponse(description = "Internal Server Error", responseCode = "500", content = @Content),
-            })
-    public FormsActivitiesCollegeDTO create(@RequestBody FormsActivitiesCollegeDTO activity) {
-        return service.create(activity);
-    }
-
-    // POST VIA FRONT
-    @PostMapping("/response")
-
-    @Operation(
             summary = "Creating an activities",
             description = "Creating an activities",
-            tags = {"Activities"},
+            tags = {"Logins"},
             responses = {
                     @ApiResponse(
                             description = "Success",
                             responseCode = "204",
-                            content = @Content(schema = @Schema(implementation = FormsActivitiesCollegeDTO.class))
+                            content = @Content(schema = @Schema(implementation = LoginCollegeDTO.class))
                     ),
                     @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
@@ -122,14 +105,9 @@ public class FormsActivitiesController {
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Server Error", responseCode = "500", content = @Content),
             })
-    public ResponseEntity<?> salvarFormulario(
-            @RequestBody FormsActivitiesCollege dadosRecebidos
-    ) {
-        System.out.println("Recebido: " + dadosRecebidos.getName());
-        FormsActivitiesCollege salvo = repository.save(dadosRecebidos);
-        return ResponseEntity.ok(salvo);
+    public LoginCollegeDTO create(@RequestBody LoginCollegeDTO login) {
+        return service.create(login);
     }
-
 
     @PutMapping(
             consumes = {
@@ -143,16 +121,15 @@ public class FormsActivitiesController {
                     MediaType.APPLICATION_YAML_VALUE
             }
     )
-
     @Operation(
             summary = "Updating an activities",
             description = "Updating an activities",
-            tags = {"Activities"},
+            tags = {"Logins"},
             responses = {
                     @ApiResponse(
                             description = "Success",
                             responseCode = "204",
-                            content = @Content(schema = @Schema(implementation = FormsActivitiesCollegeDTO.class))
+                            content = @Content(schema = @Schema(implementation = LoginCollegeDTO.class))
                     ),
                     @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
@@ -160,20 +137,21 @@ public class FormsActivitiesController {
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Server Error", responseCode = "500", content = @Content),
             })
-    public FormsActivitiesCollegeDTO update(@RequestBody FormsActivitiesCollegeDTO activity) {
-        return service.update(activity);
+    public LoginCollegeDTO update(@RequestBody LoginCollegeDTO login) {
+        return service.update(login);
     }
+
 
     @DeleteMapping(value = "/{id}")
     @Operation(
             summary = "Deleting an activities",
             description = "Deleting an activities",
-            tags = {"Activities"},
+            tags = {"Logins"},
             responses = {
                     @ApiResponse(
                             description = "Success",
                             responseCode = "204",
-                            content = @Content(schema = @Schema(implementation = FormsActivitiesCollegeDTO.class))
+                            content = @Content(schema = @Schema(implementation = LoginCollegeDTO.class))
                     ),
                     @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
@@ -187,4 +165,7 @@ public class FormsActivitiesController {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+
+
 }

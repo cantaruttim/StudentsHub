@@ -3,11 +3,12 @@ package br.com.atividades.hubCollege.data.dto;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import org.springframework.hateoas.RepresentationModel;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 @JsonPropertyOrder({"registrationNumber", "password", "studentStatus", "logedIn"})
-public class LoginCollegeDTO extends RepresentationModel<LoginCollegeDTO> {
+public class LoginCollegeDTO extends RepresentationModel<LoginCollegeDTO> implements Serializable {
 
     private String registrationNumber;
     private String password;
