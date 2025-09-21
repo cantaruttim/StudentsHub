@@ -1,4 +1,4 @@
-package br.com.atividades.atividades.config;
+package br.com.atividades.hubCollege.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
