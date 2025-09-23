@@ -1,88 +1,98 @@
-const formulario = document.querySelector('form');
+document.addEventListener("DOMContentLoaded", () => {
+    const formulario = document.querySelector("form");
 
-// Selecionando os elementos corretos do formulário
-const nome = formulario.querySelector('#name'); // corrigido
-const email = formulario.querySelector('#email');
-const modulo = formulario.querySelector('#module');
-const matricula = formulario.querySelector('#registrationNumber'); // corrigido
-const q1 = formulario.querySelector('#questionOne'); // corrigido
-const q2 = formulario.querySelector('#questionTwo'); // corrigido
+    const nome = formulario.querySelector("#name");
+    const email = formulario.querySelector("#email");
+    const modulo = formulario.querySelector("#module");
+    const matricula = formulario.querySelector("#registrationNumber");
+    const q1 = formulario.querySelector("#questionOne");
+    const q2 = formulario.querySelector("#questionTwo");
 
-function cadastrar() {
-    // Validar comprimento mínimo das respostas
-    if (q1.value.length < 300) {
-        alert('A resposta 1 precisa ter pelo menos 300 caracteres.');
-        return;
-    }
-    
-    if (q2.value.length < 150) {
-        alert('A resposta 2 precisa ter pelo menos 150 caracteres.');
-        return;
-    }
+    formulario.addEventListener("submit", (event) => {
+        event.preventDefault();
+        limparValidacoes();
 
-    fetch('http://localhost:8080/api/activities/v1/response', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-            name: nome.value,
-            email: email.value,
-            registrationNumber: matricula.value,
-            module: modulo.value,
-            questionOne: q1.value,
-            questionTwo: q2.value
-        })
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Erro na resposta do servidor');
+        if (!validarCampos()) return;
+
+        const dados = {
+            name: nome.value.trim(),
+            email: email.value.trim(),
+            registrationNumber: matricula.value.trim(),
+            module: modulo.value.trim(),
+            questionOne: q1.value.trim(),
+            questionTwo: q2.value.trim()
+        };
+
+        enviarDados(dados);
+    });
+
+    function validarCampos() {
+        let valido = true;
+
+        // Validação de resposta 1
+        if (q1.value.trim().length < 300) {
+            mostrarErro(q1, "A resposta 1 precisa ter pelo menos 300 caracteres.");
+            valido = false;
         }
-        return response.json();
-    })
-    .then(data => {
-        console.log('Success:', data);
-        alert('Respostas enviadas com sucesso!');
-        resetForm(); // só limpa se deu certo
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-        alert('Erro ao enviar respostas. Tente novamente.');
-    });
-}
 
-function resetForm() {
-    nome.value = '';
-    email.value = '';
-    matricula.value = '';
-    modulo.value = '';
-    q1.value = '';
-    q2.value = '';
+        // Validação de resposta 2
+        if (q2.value.trim().length < 150) {
+            mostrarErro(q2, "A resposta 2 precisa ter pelo menos 150 caracteres.");
+            valido = false;
+        }
 
-    // Focar no primeiro campo para facilitar novo preenchimento
-    setTimeout(() => {
-        email.focus();
-    }, 100);
-    
-    // Resetar mensagens de validação do navegador
-    formulario.reset();
-    
-    // Remover mensagens de erro personalizadas se existirem
-    const errorElements = formulario.querySelectorAll('.error-message');
-    errorElements.forEach(element => element.remove());
-    
-    // Remover classes de validação se existirem
-    const inputs = formulario.querySelectorAll('input, textarea');
-    inputs.forEach(input => {
-        input.classList.remove('is-invalid');
-        input.classList.remove('is-valid');
-    });
+        return valido;
+    }
 
-    console.log('Formulário resetado com sucesso');
-}
+    function mostrarErro(campo, mensagem) {
+        campo.classList.add("is-invalid");
 
-formulario.addEventListener('submit', function(event) {
-    event.preventDefault(); // impede o envio padrão
-    cadastrar();
+        const erro = document.createElement("div");
+        erro.className = "error-message";
+        erro.style.color = "#d35400";
+        erro.style.fontSize = "14px";
+        erro.style.marginTop = "5px";
+        erro.textContent = mensagem;
+
+        campo.parentNode.appendChild(erro);
+    }
+
+    function limparValidacoes() {
+        const erros = formulario.querySelectorAll(".error-message");
+        erros.forEach(el => el.remove());
+
+        const inputs = formulario.querySelectorAll("input, textarea");
+        inputs.forEach(input => input.classList.remove("is-invalid", "is-valid"));
+    }
+
+    function enviarDados(dados) {
+        fetch("http://localhost:8080/api/activities/v1/response", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(dados)
+        })
+        .then(response => {
+            if (!response.ok) throw new Error("Erro na resposta do servidor");
+            return response.json();
+        })
+        .then(data => {
+            console.log("Success:", data);
+            alert("Respostas enviadas com sucesso!");
+            resetForm();
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("Erro ao enviar respostas. Tente novamente.");
+        });
+    }
+
+    function resetForm() {
+        formulario.reset();
+        limparValidacoes();
+        setTimeout(() => email.focus(), 100);
+        console.log("Formulário resetado com sucesso");
+    }
 });
