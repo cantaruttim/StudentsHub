@@ -28,7 +28,6 @@ public class LoginCollegeServices {
     @Autowired
     LoginCollegeRepository repository;
 
-
     public List<LoginCollegeDTO> findAll() {
         logger.info("Finding all People!");
         var forms = parseListObject(
