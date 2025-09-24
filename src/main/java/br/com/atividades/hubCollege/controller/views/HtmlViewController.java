@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class HtmlViewController {
 
-    @GetMapping("/formulario")
+    @GetMapping("/forms")
     public String showFormPage(Model model) {
         model.addAttribute("tituloPagina", "Maturidade Espiritual - Atividade");
         model.addAttribute("tituloPrincipal", "Maturidade Espiritual");
@@ -18,7 +18,6 @@ public class HtmlViewController {
 
         return "forms"; // Isso busca templates/forms.html
     }
-
 
     @PostMapping("/response")
     public String processarFormulario(
