@@ -1,14 +1,10 @@
 package br.com.atividades.hubCollege.controller;
 
+import br.com.atividades.hubCollege.controller.docs.FormsActivitiesControllerDocs;
 import br.com.atividades.hubCollege.data.dto.FormsActivitiesCollegeDTO;
 import br.com.atividades.hubCollege.model.FormsActivitiesCollege;
 import br.com.atividades.hubCollege.repository.FormsActivitiesRepository;
 import br.com.atividades.hubCollege.service.FormsActivitiesServices;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.ArraySchema;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -21,7 +17,7 @@ import java.util.List;
 @CrossOrigin("*")
 @RequestMapping("/api/activities/v1")
 @Tag(name = "activities", description = "Endpoint for managing Activities")
-public class FormsActivitiesController {
+public class FormsActivitiesController implements FormsActivitiesControllerDocs {
 
     @Autowired
     private FormsActivitiesServices service;
@@ -36,6 +32,7 @@ public class FormsActivitiesController {
                     MediaType.APPLICATION_YAML_VALUE
             }
     )
+    @Override
     public FormsActivitiesCollegeDTO findById(@PathVariable("id") String id) {
         return service.findById(id);
     }
@@ -47,26 +44,7 @@ public class FormsActivitiesController {
                     MediaType.APPLICATION_YAML_VALUE
             }
     )
-    @Operation(
-            summary = "Find all activities",
-            description = "Find all activities",
-            tags = {"Activities"},
-            responses = {
-                    @ApiResponse(
-                            description = "Success",
-                            responseCode = "204",
-                            content = {
-                                    @Content(
-                                            mediaType = MediaType.APPLICATION_JSON_VALUE,
-                                            array = @ArraySchema(schema = @Schema(implementation = FormsActivitiesCollegeDTO.class))
-                                    )
-                            }),
-                    @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
-                    @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
-                    @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
-                    @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
-                    @ApiResponse(description = "Internal Server Error", responseCode = "500", content = @Content),
-            })
+    @Override
     public List<FormsActivitiesCollegeDTO> findAll() {
         return service.findAll();
     }
@@ -83,45 +61,14 @@ public class FormsActivitiesController {
                     MediaType.APPLICATION_YAML_VALUE
             }
     )
-    @Operation(
-            summary = "Find an activities",
-            description = "Find an activities",
-            tags = {"Activities"},
-            responses = {
-                    @ApiResponse(
-                            description = "Success",
-                            responseCode = "204",
-                            content = @Content(schema = @Schema(implementation = FormsActivitiesCollegeDTO.class))
-                    ),
-                    @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
-                    @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
-                    @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
-                    @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
-                    @ApiResponse(description = "Internal Server Error", responseCode = "500", content = @Content),
-            })
+    @Override
     public FormsActivitiesCollegeDTO create(@RequestBody FormsActivitiesCollegeDTO activity) {
         return service.create(activity);
     }
 
     // POST VIA FRONT
     @PostMapping("/response")
-
-    @Operation(
-            summary = "Creating an activities",
-            description = "Creating an activities",
-            tags = {"Activities"},
-            responses = {
-                    @ApiResponse(
-                            description = "Success",
-                            responseCode = "204",
-                            content = @Content(schema = @Schema(implementation = FormsActivitiesCollegeDTO.class))
-                    ),
-                    @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
-                    @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
-                    @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
-                    @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
-                    @ApiResponse(description = "Internal Server Error", responseCode = "500", content = @Content),
-            })
+    @Override
     public ResponseEntity<?> salvarFormulario(
             @RequestBody FormsActivitiesCollege dadosRecebidos
     ) {
@@ -143,44 +90,13 @@ public class FormsActivitiesController {
                     MediaType.APPLICATION_YAML_VALUE
             }
     )
-
-    @Operation(
-            summary = "Updating an activities",
-            description = "Updating an activities",
-            tags = {"Activities"},
-            responses = {
-                    @ApiResponse(
-                            description = "Success",
-                            responseCode = "204",
-                            content = @Content(schema = @Schema(implementation = FormsActivitiesCollegeDTO.class))
-                    ),
-                    @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
-                    @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
-                    @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
-                    @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
-                    @ApiResponse(description = "Internal Server Error", responseCode = "500", content = @Content),
-            })
+    @Override
     public FormsActivitiesCollegeDTO update(@RequestBody FormsActivitiesCollegeDTO activity) {
         return service.update(activity);
     }
 
     @DeleteMapping(value = "/{id}")
-    @Operation(
-            summary = "Deleting an activities",
-            description = "Deleting an activities",
-            tags = {"Activities"},
-            responses = {
-                    @ApiResponse(
-                            description = "Success",
-                            responseCode = "204",
-                            content = @Content(schema = @Schema(implementation = FormsActivitiesCollegeDTO.class))
-                    ),
-                    @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
-                    @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
-                    @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
-                    @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
-                    @ApiResponse(description = "Internal Server Error", responseCode = "500", content = @Content),
-            })
+    @Override
     public ResponseEntity<Void> delete(
             @PathVariable("id") String id
     ) {
