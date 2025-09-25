@@ -1,24 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './forms.css';
 
-export default FormAtividade() {
+function FormsActivities() {
   // Estados controlados para os inputs
   const [email, setEmail] = useState('');
   const [nome, setNome] = useState('');
   const [matricula, setMatricula] = useState('');
   const [modulo, setModulo] = useState('');
 
-  // Simulando dados dinâmicos (que antes vinham do Controller com Thymeleaf)
-  const tituloPagina = 'Maturidade Espiritual - Atividade';
+  // Dados dinâmicos simulados
   const tituloPrincipal = 'Maturidade Espiritual';
   const autor = 'Pra. Laura Valente';
   const subtitulo = 'Atividade - Módulo 2: Maturidade Espiritual';
 
-  // Simulação de envio (no lugar do form tradicional)
+  // Simulação de envio
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Aqui você pode fazer o POST com fetch/axios
     console.log({ email, nome, matricula, modulo });
+
+    // Você pode fazer um POST aqui com fetch ou axios, por exemplo
+    // fetch('/api/responder', { method: 'POST', body: JSON.stringify(...) })
   };
 
   return (
@@ -99,8 +100,13 @@ export default FormAtividade() {
           />
         </div>
 
-        <button type="submit">Enviar</button>
+        <div className="buttons">
+          <button type="submit" className="submit-btn">Enviar</button>
+        </div>
       </form>
     </div>
   );
 }
+
+export default FormsActivities;
+
