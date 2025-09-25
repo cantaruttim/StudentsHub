@@ -1,9 +1,8 @@
 import React from 'react';
+import FormsAtivities from './'
 
-function App() {
+export default function App() {
   return (
     <h1>Página de Atividades!</h1>
   );
 }
-
-export default App;
