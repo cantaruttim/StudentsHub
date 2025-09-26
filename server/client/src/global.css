@@ -4,3 +4,9 @@
     outline: 0;
     box-sizing: border-box;
 }
+
+body {
+    font: 400 14px, sans-serif;
+    background: #f3f3f3;
+    -webkit-font-smoothing: antialiased;
+}
