@@ -1,0 +1,51 @@
+/* Define fundo próprio para a página inteira */
+.student-hub-page {
+  background-color: #f3f3f3;
+  min-height: 100vh;
+  padding: 20px 70vh;
+}
+
+/* Menu no topo */
+.top-menu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+/* Estilo do texto */
+.top-menu span {
+  font-size: 20px;
+}
+
+.top-menu span strong {
+  color: #251FC5;
+}
+
+/* Botão e link à direita */
+.top-menu a.button {
+  text-decoration: none;
+  color: #251FC5;
+  font-weight: bold;
+  margin-left: auto;
+  margin-right: 16px;
+}
+
+.top-menu button {
+  height: 48px;
+  width: 48px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.top-menu button:hover {
+  background-color: #e6e6ff;
+  border-color: #251FC5;
+}
