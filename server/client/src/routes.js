@@ -14,6 +14,7 @@ export default function Rotas() {
             <Routes>
                 <Route path='/login-adai-college' exact Component={Login} />
                 <Route path='/activities-adai-college' Component={FormsActivities} />
+                <Route path='/studenthub-adai-college' Component={StudentHub} />
             </Routes>
         </BrowserRouter>
     )
