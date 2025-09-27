@@ -1,17 +1,13 @@
-import React from 'react';
-import './style/style.css'; // Estilo importado direto
-
-// Opcional: se quiser controlar o <title> da aba
-import { Helmet } from 'react-helmet';
+import React, { useEffect } from 'react';
+import './styles.css'; // Estilo importado direto
 
 function StudentHub({ pageTitle, headerTitle, welcomeMessage, developmentNote }) {
+  useEffect(() => {
+    document.title = pageTitle || 'Hub do Aluno';
+  }, [pageTitle]);
+
   return (
     <div className="container">
-      {/* Head da página */}
-      <Helmet>
-        <title>{pageTitle || 'Hub do Aluno'}</title>
-      </Helmet>
-
       <header>
         <h1>{headerTitle || 'Hub do Aluno'}</h1>
 
@@ -22,7 +18,7 @@ function StudentHub({ pageTitle, headerTitle, welcomeMessage, developmentNote })
             </>
           )}
         </p>
-
+        <br /> 
         <p className="development-note">
           {developmentNote || (
             <strong><em>EM DESENVOLVIMENTO</em></strong>

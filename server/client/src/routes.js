@@ -7,6 +7,7 @@ import {
 
 import Login from './pages/Login';
 import FormsActivities from './pages/FormsActivities';
+import StudentHub from './pages/HubsStudents';
 
 export default function Rotas() {
     return (
