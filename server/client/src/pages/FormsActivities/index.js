@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './forms.css';
+import './styles.css';
 
 function FormsActivities() {
   // Estados controlados para os inputs
